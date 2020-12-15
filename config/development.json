@@ -1,0 +1,8 @@
+{
+  "sendgrid": {
+    "apiKey": "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",
+    "from": "corey_fergurson@insideranken.org",
+    "to": "corey_ferugrson@insideranken.org",
+    "secret": "emailSecret"
+  }
+}

@@ -1,0 +1,19 @@
+<main class="container mt-5">
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="/group/">Group</a></li>
+      <li class="breadcrumb-item active" aria-current="page">{{title}}</li>
+    </ol>
+  </nav>
+  
+
+
+    <div class="col-md-6">
+      <div class="card mb-3 px-3">
+        <h2 class="card-title pt-2">{{group.name}}</h2>
+        <span class="mb-2 font-weight-bold font-italic">Description: {{group.description}}</span>
+        <div class="card-text mb-2">Members: {{group.member-count}}</div>
+      </div>
+    </div>
+
+</main>

@@ -1,0 +1,32 @@
+{
+  "name": "@corey_fergurson/fancy_media",
+  "version": "1.0.0",
+  "description": "a social media website",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js",
+    "nodemon": "nodemon server.js"
+  },
+  "author": "Corey Fergurson",
+  "license": "MIT",
+  "dependencies": {
+    "@sendgrid/mail": "^7.3.0",
+    "bcrypt": "^5.0.0",
+    "colors": "^1.4.0",
+    "config": "^3.3.2",
+    "cookie-parser": "^1.4.5",
+    "debug": "^4.2.0",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "express-handlebars": "^5.2.0",
+    "joi": "^17.3.0",
+    "joi-objectid": "^3.0.1",
+    "jsonwebtoken": "^8.5.1",
+    "knex": "^0.21.12",
+    "lodash": "^4.17.20",
+    "moment": "^2.29.1",
+    "mongodb": "^3.6.3",
+    "morgan": "^1.10.0"
+  }
+}

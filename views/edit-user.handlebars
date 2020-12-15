@@ -1,0 +1,27 @@
+<main class="container mt-5">
+  <h1>Edit User</h1>
+  <form id="edit-user-form" method="PUT" action="/api/account/{{user.id}}">
+  <input id="id" name="id" type="hidden" value="{{user.id}}">
+  <div class="form-group">
+    <label for="username">Username</label>
+    <input id="username" name="username" class="form-control" type="text" value="{{user.username}}">
+    <div class="text-danger" id="username-error"></div>
+  </div>
+  <div class="form-group">
+    <label for="email">Email</label>
+    <input id="email" name="email" class="form-control" type="email" value="{{user.email}}">
+    <div class="text-danger" id="email-error"></div>
+  </div>
+  <div class="form-group">
+    <label for='bio'>Bio</label>
+    <textarea id="bio" name="bio" class="form-control" type="text" value="{{user.bio}}"></textarea>
+    <div class="text-danger" id="bio-error"></div>
+  </div>
+  <div class="form-group">
+    <button class="btn btn-primary" type="submit">Save</button>
+  </div>
+  <div class="form-group">
+    <output class="text-danger"></output>
+  </div>
+  </form>
+</main>

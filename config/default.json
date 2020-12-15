@@ -1,0 +1,11 @@
+{
+  "http": {
+    "hostname": "localhost",
+    "port": 3000
+  },
+   "db": {
+    "url": "mongodb+srv://Corey:corey4800@cluster0.uhelw.mongodb.net",
+    "name": "fancy_media",
+    "poolSize": 5
+  }
+}

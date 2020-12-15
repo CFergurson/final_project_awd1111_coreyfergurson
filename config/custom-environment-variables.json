@@ -1,0 +1,26 @@
+{
+  "debug" : "DEBUG",
+  "http": {
+    "hostname": "HOSTNAME",
+    "port": "PORT"
+  },
+  "db": {
+    "database" : "DB_NAME",
+    "host": "DB_HOST",
+    "port": "DB_PORT",
+    "user": "DB_USER",
+    "password": "DB_PASS",
+    "connectionLimit": "DB_POOL" 
+  },
+  "sendgrid": {
+    "apiKey": "SENDGRID_API_KEY",
+    "from": "SENDGRID_FROM",
+    "to": "SENDGRID_TO",
+    "secret": "SENDGRID_SECRET",
+    "templates": {
+      "verifyEmail": "SENDGRID_TEMPLATE_VERIFY_EMAIL",
+      "welcomeEmail": "SENDGRID_TEMPLATE_WELCOME_EMAIL"
+
+    }
+  }
+}

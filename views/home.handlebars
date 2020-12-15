@@ -1,0 +1,94 @@
+<main class="container mt-5">
+  <h1>Groups</h1>
+  <a class="btn btn-primary" href="/group/add"><i class="fas fa-plus"></i> Add Group</a>
+  
+  <form id="search-group-form" method="GET">
+  <fieldset>
+      <legend>Search</legend>
+      <div class="form-group">
+        <label for="search">Search</label>
+        <div class="input-group mb-3">
+          <input id="search" name="search" type="search" class="form-control" placeholder="search...">
+          <div class="input-group-append">
+            
+        <button type="submit" class="btn btn-primary">
+          <i class="fas fa-search"></i> Search
+        </button>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="sortBy">Sort By</label>
+        <select id="sortBy" name="sortBy" class="form-control">
+          <option value="">
+            No Sort
+          </option>
+          <option value="name">
+           Name A-Z
+          </option>
+          <option value="name desc">
+           Name Z-A 
+          </option>
+          <option value="member_count">
+            # of Members (Low-High)
+          </option>
+          <option value="member_count desc">
+            # of Members (High-Low)
+          </option>
+          
+          
+        </select>
+      </div>
+     
+    </fieldset>
+    </form>
+    <div id="search-results-spinner" class="spinner-border m-2"></div>
+    <div id="search-results"></div>
+     <script  src="/js/jquery-3.5.1.min.js"></script>
+  <script  src="/js/oboe-browser.min.js"></script>
+  <script>
+    const performSearch = () => {
+      $('#search-results-spinner').removeClass('d-none');
+      $('#search-results').html('');
+
+      const formData = $('#search-group-form').serialize();
+
+      oboe('/api/group?' + formData)
+        .node('![*]', group => {
+          if (group) {
+            $('#search-results').append(`
+              <div class="card mb-3">
+                <div class="card-header">${group.name}</div>
+                <div class="card-body">          
+                  <div>Member Count: ${group.member_count}</div>
+                  <div class="mt-3">${group.description}</div>
+                  <div class="text-right">
+            <a href="/group/edit/{{id}}" class="btn btn-primary"><i class="fas fa-pencil-alt"></i> Edit</a>
+            <button class="btn btn-danger delete-group-from-list" data-id="{{id}}" data-name="{{name}}"><i class="fas fa-eraser"></i> Delete</button>
+          </div>
+                </div>
+              </div>
+            `);
+          }
+          return oboe.drop;
+        })
+        .done(_ => {
+          $('#search-results-spinner').addClass('d-none');
+        })
+        .fail(res => {
+          // TODO: show error message
+        });
+    };
+
+    $(() => {
+      performSearch();
+      $('#search-group-form').on('submit', (evt) => {
+        evt.preventDefault();
+        performSearch();
+      });
+      $('#search-group-form select').on('change', (evt) => {
+        $('#search-group-form').trigger('submit');
+      });
+    });
+  </script>
+</main>
