@@ -6,6 +6,30 @@ $(() => {
     }
     $(evt.target).addClass('was-validated');
   });
+  // $('#edit-group-form').submit((evt) => {
+  //       evt.preventDefault();
+    
+  //       const id = $('#id').val();
+  //       const formData = $(evt.target).serialize();
+  //       console.log(formData);
+    
+  //       $.ajax({
+  //         method: 'PUT',
+  //         url: `/api/group/${_id}`,
+  //         dataType: 'json',
+  //         data: formData
+  //       })
+  //         .done((res) => {
+  //           if (res.error) {
+  //             $('#edit-group-form output').html(res.error);
+  //           } else {
+  //             window.location = new URL(`/`, window.location);
+  //           }
+  //         })
+  //         .fail((xhr, textStatus, err) => {
+  //           $('#edit-group-form output').html(`${textStatus} \n ${err}`);
+  //         });
+  //     });
 });
  
 //$(() => {

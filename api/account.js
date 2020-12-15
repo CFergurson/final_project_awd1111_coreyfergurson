@@ -75,6 +75,7 @@ router.post('/', async(req, res, next) => {
       password: joi.string().required(),
     });
     const user = await schema.validateAsync(req.body);
+    debug(user);
     const result = await db.insertUser(user);
     res.json(result);
   }catch(err){
@@ -82,22 +83,39 @@ router.post('/', async(req, res, next) => {
   }
 });
 
-router.put('/:id', async (req, res, next) => {
+router.post('/:id', async (req, res, next) => {
   debug('update user');
+  
   try{
+let error = '';    
+
+
     const schema = joi.object({
-      id: joi.number().min(1).required(),
+      _id: joi.objectId().required(),
+      // id: joi.string().min(1).required(),
       username: joi.string().required().min(1).max(100).trim(),
       email: joi.string().email().required(),
       bio: joi.string().required().min(1).max(200),
     });
-    let user = req.body;
-    user.id = req.params.id;
-    user = await schema.validateAsync(user);
+    
+    // let user = req.body;
+    user = await schema.validateAsync(req.body);
+    // user.id = parseInt(user.id);
+    // user.id = req.params.id;
+    // if(!user){
+    //   error = "Fields are invalid";
+    // }else{
+    //   if(error){
+    //     res.render('edit-user', {
+    //       title: 'Edit User', user, error: error
+    //     });
+    //   }
+    // }
+    
     debug(user);
-    const result = await db.updateUser(user);
-    debug(`results ${result}`);
-    res.json(result);
+    await db.updateUser(user);
+    // debug(`results ${result}`);
+    res.render('users');
   }catch(err){
     sendError(err, res);
   }
@@ -105,6 +123,9 @@ router.put('/:id', async (req, res, next) => {
 
 router.delete('/:id', async(req, res, next) => {
   debug('delete user');
+ 
+    
+       
   try{
     const schema = joi.number().min(1).required();
     const id = await schema.validateAsync(req.params.id);

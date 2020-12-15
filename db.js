@@ -31,7 +31,7 @@ const findPostsByGroupId = async (group_id) => {
 }
 const findGroupById = async (id) => {
   const database = await connect();
-  return database.collections('groups').findOne({id: id});
+  return database.collection('groups').findOne({_id: new ObjectID(id)});
 }
 const insertGroup = async (group) => {
   const database = await connect();
@@ -60,7 +60,7 @@ const findUserByUsername = async (username) => {
 };
 const findUserById = async (id) => {
   const database = await connect();
-  return database.collection('users').findOne({id: id});
+  return database.collection('users').findOne({_id: new ObjectID(id)});
 }
 const getAllUsers = async () => {
   const database = await connect();
@@ -77,7 +77,8 @@ const updateUser = async (user) => {
   {
   $set: {
     username: user.username,
-    email: user.email
+    email: user.email,
+    bio: user.bio,
 }
    
   });

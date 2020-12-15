@@ -69,6 +69,7 @@ router.get('/:id', async (req, res, next) => {
     }else{
       res.status(404).type('text/plain').send('user not found');
     }
+    
   }catch(err){
     next(err);
   }

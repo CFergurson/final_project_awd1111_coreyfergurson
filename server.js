@@ -9,6 +9,8 @@ const colors = require('colors');
 const bcrypt = require('bcrypt');
 const cookieParser = require('cookie-parser');
 const morgan = require('morgan');
+const { join } = require('lodash');
+const joi = require('joi');
 //const router = require('./routes/group');
 
 const app = express();
@@ -25,6 +27,7 @@ app.set('view engine', 'handlebars');
 app.use(express.urlencoded({ extended: false }));
 app.use(morgan('tiny'));
 app.use(cookieParser());
+joi.objectId = require('joi-objectid')(joi);
 
 const sendError = (err, res) => {
   debug(err);

@@ -8,3 +8,9 @@ legend{
   padding: 0 0.5rem;
   margin: 0 0.5rem;
 }
+h1, h2{
+  font-family: "Oswald", sans-serif;
+}
+body{
+  font-family: "Open Sans", sans-serif;
+}

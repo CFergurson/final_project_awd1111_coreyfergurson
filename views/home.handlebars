@@ -63,8 +63,8 @@
                   <div>Member Count: ${group.member_count}</div>
                   <div class="mt-3">${group.description}</div>
                   <div class="text-right">
-            <a href="/group/edit/{{id}}" class="btn btn-primary"><i class="fas fa-pencil-alt"></i> Edit</a>
-            <button class="btn btn-danger delete-group-from-list" data-id="{{id}}" data-name="{{name}}"><i class="fas fa-eraser"></i> Delete</button>
+            <a href="/group/edit/${group._id}" class="btn btn-primary"><i class="fas fa-pencil-alt"></i> Edit</a>
+            <button class="btn btn-danger delete-group-from-list" data-id="${group._id}" data-name="${group.name}"><i class="fas fa-eraser"></i> Delete</button>
           </div>
                 </div>
               </div>
