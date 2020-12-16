@@ -62,21 +62,19 @@ router.get('/edit/:id', async (req, res, next) => {
   }
 });
 
-router.get('/:id', (req, res, next) => {
+router.get('/:id', async (req, res, next) => {
   debug('pulling view of group')
-  try{
+  try {
     const id = req.params.id;
-    const group = db.findGroupById(id);
-      debug(group);
-        if (group) {
-          res.render('group', { title: 'Group', group });
-        } else {
-          res.status(404).type('text/plain').send('group not found');
-        }
-      
-  }catch(err){
+    debug(id);
+    const group = await db.findGroupById(id);
+    
+    const posts = await db.findPostsByGroupId(group._id);
+  debug(posts);
+    res.render('group', {title: 'Group', group, posts})
+  } catch (err) {
     next(err);
-  };
+  }
 });
 
 router.get('/:group_id', (req, res, next) => {

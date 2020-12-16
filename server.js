@@ -39,16 +39,22 @@ const sendError = (err, res) => {
 }
 
 
-app.get('/', (req, res) => res.redirect('/login'));
+app.get('/', (req, res) => res.render('intro'));
 app.use('/account', require('./routes/account'));
 app.use('/api/account', require('./api/account'));
 app.get('/login', (req, res) => {
   res.render('login', {Title: 'Login'});
 });
+app.get('/home', (req, res) => {
+  res.render('home', {Title: 'Home'});
+});
+
 
 app.post('/login', async (req, res) => {
   debug('Trying to login in');
-  
+  try{
+
+ 
     const username = req.body.username;
     const password = req.body.password;
 
@@ -68,7 +74,7 @@ app.post('/login', async (req, res) => {
           if(result){
             accepted = true;
             debug('Form submitted'.green);
-            res.redirect('/api/group');
+            res.redirect('/home');
           }else{
             debug('Form is not submitted'.red);
           res.redirect('/login');
@@ -85,10 +91,14 @@ app.post('/login', async (req, res) => {
       }else if(accepted == false){
         debug('No user'.red);
         res.render('login');
+      }else{
+        res.render('login');
       }
     }
   
-    
+  }catch(err){
+ next(err);
+  }
   
   
   
@@ -127,6 +137,8 @@ app.post('/login', async (req, res) => {
 
 app.use('/group', require('./routes/group'));
 app.use('/api/group', require('./api/group'));
+app.use('/post', require('./routes/post'));
+app.use('/api/post', require('./api/post'));
 app.use('/', express.static('public'));
 app.use(require('./middleware/error404'));
 app.use(require('./middleware/error500'));

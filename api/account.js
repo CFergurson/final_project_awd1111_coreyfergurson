@@ -77,7 +77,7 @@ router.post('/', async(req, res, next) => {
     const user = await schema.validateAsync(req.body);
     debug(user);
     const result = await db.insertUser(user);
-    res.json(result);
+    res.render('users')
   }catch(err){
     sendError(err, res);
   }
@@ -123,14 +123,11 @@ let error = '';
 
 router.delete('/:id', async(req, res, next) => {
   debug('delete user');
- 
-    
-       
   try{
-    const schema = joi.number().min(1).required();
+    const schema = joi.objectId().required();
     const id = await schema.validateAsync(req.params.id);
-    const result = await db.deleteUser(id);
-    res.json(result);
+    await db.deleteUser(id);
+    res.render('users');
   }catch(err){
     sendError(err, res);
   }

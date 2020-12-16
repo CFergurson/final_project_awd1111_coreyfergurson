@@ -6,6 +6,30 @@ $(() => {
     }
     $(evt.target).addClass('was-validated');
   });
+  // $('.delete-group-from-list').click((evt) => {
+  //   //     //had a debug here but it broke the code...why?!?!?!?!?!?!?!
+  //       const id = $(evt.target).data('group._id');
+  //       const name = $(evt.target).data('group.name');
+  //       debug(id + name);
+  //       const confirm_delete = confirm(`Are you sure you want to delete "${name}"`);
+  //       if (confirm_delete) {
+  //         $.ajax({
+  //           method: 'DELETE',
+  //           url: `/api/group/${id}`,
+  //           dataType: 'json',
+  //         })
+  //           .done((res) => {
+  //             if(res.error){
+  //               alert(res.error);
+  //             }else{
+  //             window.location.reload();
+  //             }
+  //           })
+  //           .fail((xhr, textStatus, err) => {
+  //             alert(`${textStatus} \n ${err}`);
+  //           });
+  //       }
+  //     });
   // $('#edit-group-form').submit((evt) => {
   //       evt.preventDefault();
     

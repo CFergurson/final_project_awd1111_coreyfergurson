@@ -15,8 +15,9 @@ const sendError = (err, res) => {
     res.json({error: err.message});
   }
 }
+
 router.get('/', async (req, res, next) => {
-  debug('got all groups');
+  debug('got all posts');
   try{
     const collation = { locale: 'en_US', strength: 1 };
     const search = req.query.search;
@@ -36,36 +37,32 @@ router.get('/', async (req, res, next) => {
     // }
   let sortStage = null;
   switch(sortBy){
-    case 'name':
-      sortStage = {name: 1};
+    case 'title':
+      sortStage = {title: 1};
       break;
-   case 'name desc':
-     sortStage = {name: -1};
+   case 'title desc':
+     sortStage = {title: -1};
      break;
-    case 'member_count':
-      sortStage = {member_count: 1};
-      break;
-      case 'member_count desc':
-      sortStage = {member_count: -1};
-      break;
     default: 
-    sortStage = search ? {relevance: -1} : {name: 1};
+    sortStage = search ? {relevance: -1} : {title: 1};
     break;
   }
     const pipeline = [
       {$match: matchStage},
       {
         $project: {
-          name: 1,
-          description: 1,
-          member_count: 1,
+          // name: 1,
+          // description: 1,
+          // member_count: 1,
+          title: 1,
+          body: 1,
           relevance: search ? {$meta: 'textScore'} : null, 
         },
       },
       {$sort: sortStage},
     ];
     const conn = await db.connect();
-    const cursor = conn.collection('groups').aggregate(pipeline, {collation: collation});
+    const cursor = conn.collection('posts').aggregate(pipeline, {collation: collation});
 
     res.type('application/json');
     res.write('[\n');
@@ -80,83 +77,67 @@ router.get('/', async (req, res, next) => {
   
  
 });
-
-// router.get('/:id', async (req, res, next) => {
-//   debug('find by id');
-//   try {
-//     const id = req.params.group._id;
-//     const group = await db.findGroupById(id);
-//     const posts = await db.findPostsByGroupId(group._id);
-//     debug(group + 'hi' + posts);
-//     res.render('group', {title: 'Group', group, posts})
-//   } catch (err) {
-//     next(err);
-//   }
-// });
-router.get('/id/:id', async (req, res, next) => {
-  debug('find the group by id')
-  try{
-    const schema = joi.number().min(1).required();
-    const id = await schema.validateAsync(req.params.id);
-    const group = await db.findGroupById(id);
-    res.json(group);
-  }catch(err){
-    //next(err, res);
-    sendError(err, res);
-  }
-});
 router.post('/', async (req, res, next) => {
-  debug('insert group');
+  debug('insert post');
+  let error = '';
   try {
     const schema = joi.object({
-      name: joi.string().required().min(3).max(100).trim(),
-      description: joi.string().required().min(1).max(100).trim(),
-      member_count: joi.number().required().min(0).max(9999),
+      title: joi.string().required().min(1).max(100).trim(),
+      body: joi.string().required().min(1).max(100).trim(),
     });
+    debug(error);
     
-    const group = await schema.validateAsync(req.body);
+    post = await schema.validateAsync(req.body);
     // debug(group.memberCount);
+    if(!post.title){
+      error = "Please enter a valid title";
+      if(error){
+        res.render('add-post', {title: "Posts", post ,error: error});
+      }else{
+        await db.insertPost(post);
+        res.render('posts');
+      }
+    }
     
-    await db.insertGroup(group);
-    res.render('home');
+    
   }catch(err){
-    //next(err)
-   sendError(err, res);
+    next(err)
+   
   }
 });
 router.post('/:id', async (req, res, next) => {
-  debug('update group');
+  debug('update post');
   try{
     const schema = joi.object({
       _id: joi.objectId().required(),
       // id: joi.number().min(1).required(),
-      name: joi.string().required().min(3).max(100).trim(),
-      description: joi.string().required().min(3).max(100).trim(),
-      member_count: joi.number().required().min(0).max(9999)
+      title: joi.string().required().min(3).max(100).trim(),
+      body: joi.string().required().min(3).max(100).trim()
+      
     });
     // let group = req.body;
     // group.id = req.params.id;
-    group = await schema.validateAsync(req.body);
-    debug(group);
-  await db.updateGroup(group);
+    post = await schema.validateAsync(req.body);
+    debug(post);
+  await db.updatePost(post);
     // debug(`result: ${result}`);
-    res.render('home');
+    res.render('posts');
   }catch(err){
     sendError(err, res);
   }
 });
 router.post('/delete/:id', async(req, res, next) => {
-  debug('delete group');
+  debug('delete post');
 
   try{
     const schema = joi.objectId().required();
     const id = await schema.validateAsync(req.params.id);
-    await db.deleteGroup(id);
-    res.render('home');
+    debug(id);
+    await db.deletePost(id);
+    res.render('posts');
   }catch(err){
     sendError(err, res);
   }
 });
 
 module.exports = router;
-

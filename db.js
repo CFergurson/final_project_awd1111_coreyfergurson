@@ -45,13 +45,42 @@ const updateGroup = async (group) => {
       $set: {
         name: group.name,
         description: group.description,
-        member_count: group.memberCount
+        member_count: group.member_count
       },
   });
 };
 const deleteGroup = async (id) => {
   const database = await connect();
   return database.collection('groups').deleteOne({_id: new ObjectID(id)});
+};
+
+// POSTS
+const getAllPosts = async () => {
+  const database = await connect();
+  return database.collection('posts').find({}).toArray();
+};
+const findPostById = async (id) => {
+  const database = await connect();
+  return database.collection('posts').findOne({_id: new ObjectID(id)});
+}
+const insertPost = async (post) => {
+  const database = await connect();
+  return database.collection('posts').insertOne(post);
+}
+const updatePost = async (post) => {
+  const database = await connect();
+  return database.collection('posts').updateOne(
+    {_id: new ObjectID(post._id)},
+    {
+      $set: {
+        title: post.title,
+        body: post.body,
+      },
+  });
+};
+const deletePost = async (id) => {
+  const database = await connect();
+  return database.collection('posts').deleteOne({_id: new ObjectID(id)});
 };
 
 const findUserByUsername = async (username) => {
@@ -102,3 +131,8 @@ module.exports.insertUser = insertUser;
 module.exports.updateUser = updateUser;
 module.exports.deleteUser = deleteUser;
 module.exports.connect = connect;
+module.exports.getAllPosts = getAllPosts;
+module.exports.findPostById = findPostById;
+module.exports.insertPost = insertPost;
+module.exports.updatePost = updatePost;
+module.exports.deletePost = deletePost;

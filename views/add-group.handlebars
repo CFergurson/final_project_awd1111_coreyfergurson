@@ -1,3 +1,5 @@
+  <meta name="description" content="Adding a group.">
+  <meta name="keywords" content="Add, Group">
 <main class="container mt-5">
   <h1>Add Group</h1>
   <form id="add-group-form" method="POST" action='/api/group'>
@@ -12,15 +14,15 @@
       <div id="description-error" class="text-danger"></div>
     </div>
     <div class="form-group">
-      <label for="memberCount"># of Members</label>
-      <input id="memberCount" name="memberCount" class="form-control" type="number">
-      <div id="memberCount-error" class="text-danger"></div>
+      <label for="member_count"># of Members</label>
+      <input id="member_count" name="member_count" class="form-control" type="number">
+      <div id="member_count-error" class="text-danger"></div>
     </div>
     <div class="form-group">
       <button class="btn btn-primary" type="submit">Add</button>
     </div>
     <div class="form-group">
-      <output class="text-danger"></output>
+      <output class="text-danger">{{error}}</output>
     </div>
   </form>
 </main>
