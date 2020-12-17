@@ -50,59 +50,7 @@ app.get('/home', (req, res) => {
 });
 
 
-app.post('/login', async (req, res) => {
-  debug('Trying to login in');
-  try{
-
- 
-    const username = req.body.username;
-    const password = req.body.password;
-
-    debug(username + ' username');
-    let accepted = false;
-    if(!username || !password){
-      debug('Wrong');
-    }else{
-      const user = await db.findUserByUsername(username);
-      debug(user);
-      if(user.username == username){
-  
-        const result = await bcrypt.compare(password, user.password);
-        debug(password);
-        debug(user.password);
-        debug(result);
-          if(result){
-            accepted = true;
-            debug('Form submitted'.green);
-            res.redirect('/home');
-          }else{
-            debug('Form is not submitted'.red);
-          res.redirect('/login');
-          }
-          
-        
-        // if(user.password == password){
-        //   debug('Form submitted'.green);
-        //   res.redirect('/group');
-        // }else{
-        //   debug('Form is not submitted'.red);
-        //   res.redirect('/login');
-        // }
-      }else if(accepted == false){
-        debug('No user'.red);
-        res.render('login');
-      }else{
-        res.render('login');
-      }
-    }
-  
-  }catch(err){
- next(err);
-  }
-  
-  
-  
-  // const data = {
+// const data = {
   //   title: 'Login Form', 
   //   loginForm: {
   //     isValid: true,
@@ -130,8 +78,6 @@ app.post('/login', async (req, res) => {
   //   res.render('login', data.loginForm);
   // }
 
-
-});
 
 
 

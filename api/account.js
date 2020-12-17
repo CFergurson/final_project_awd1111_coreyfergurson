@@ -9,7 +9,7 @@ router.use(express.json());
 
 const sendError = (err, res) => {
   debug(err);
-  if(err.isJoi){
+  if(err.isjoi){
     res.json({error: err.details.map((x) => x.message).join('\n')});
   }else{
     res.json({error: err.message});
@@ -73,11 +73,13 @@ router.post('/', async(req, res, next) => {
       username: joi.string().required().min(1).max(100).trim(),
       email: joi.string().email().required(),
       password: joi.string().required(),
+      bio: joi.string().required().min(1).max(200),
     });
     const user = await schema.validateAsync(req.body);
-    debug(user);
+    // debug(user);
     const result = await db.insertUser(user);
-    res.render('users')
+    debug(result);
+    res.json(result);
   }catch(err){
     sendError(err, res);
   }
@@ -87,7 +89,7 @@ router.post('/:id', async (req, res, next) => {
   debug('update user');
   
   try{
-let error = '';    
+  
 
 
     const schema = joi.object({
@@ -99,7 +101,7 @@ let error = '';
     });
     
     // let user = req.body;
-    user = await schema.validateAsync(req.body);
+    const user = await schema.validateAsync(req.body);
     // user.id = parseInt(user.id);
     // user.id = req.params.id;
     // if(!user){
@@ -113,20 +115,23 @@ let error = '';
     // }
     
     debug(user);
-    await db.updateUser(user);
+    const result = await db.updateUser(user);
     // debug(`results ${result}`);
-    res.render('users');
+    res.json(result);
   }catch(err){
     sendError(err, res);
   }
 });
 
-router.delete('/:id', async(req, res, next) => {
+
+router.post('/delete/:id', async(req, res, next) => {
   debug('delete user');
   try{
     const schema = joi.objectId().required();
     const id = await schema.validateAsync(req.params.id);
+    debug(id);
     await db.deleteUser(id);
+    
     res.render('users');
   }catch(err){
     sendError(err, res);

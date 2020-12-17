@@ -1,0 +1,64 @@
+ <head>
+<meta name="description" content="Deleting the group selected.">
+  <meta name="keywords" content="Delete, Groups">
+ </head>
+ 
+<main class="container mt-5">
+  {{#with group}}
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="/group/">Group</a></li>
+      <li class="breadcrumb-item active" aria-current="page">{{name}}</li>
+    </ol>
+  </nav>
+  
+
+
+    <div class="col-md-6">
+      <div class="card mb-3 px-3">
+        <h2 class="card-header pt-2">{{name}}</h2>
+        <span class="mb-2 font-weight-bold font-italic">Description: {{description}}</span>
+        <div class="card-text mb-2">Members: {{member_count}}</div>
+      </div>
+    </div>
+   
+    <form method="post" action="/api/group/delete/{{_id}}">
+<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal">
+  <i class="fas fa-eraser"></i> Delete
+</button>
+
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Delete Group</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+       Are you sure you want to delete {{name}}?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-danger delete-group-from-list" data-id="{{_id}}" data-name="{{name}}"><i class="fas fa-eraser"></i> Delete</button>
+      </div>
+    </div>
+  </div>
+</div>
+           
+            </form>
+{{/with}}
+ {{!-- {{#each post}}
+  <div class="col-md-6">
+      <div class="card mb-3 px-3">
+        <h2 class="card-header pt-2">{{title}}</h2>
+        <span class="mb-2 font-weight-bold font-italic">{{date}}</span>
+        <div class="card-text mb-2"> {{body}}</div>
+      </div>
+    </div>
+    {{/each}} --}}
+ <script  src="/js/jquery-3.5.1.min.js"></script>
+  <script  src="/js/oboe-browser.min.js"></script>
+</main>

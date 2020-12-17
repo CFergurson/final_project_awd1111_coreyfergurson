@@ -1,32 +1,35 @@
-  <meta name="description" content="Editing a user.">
-  <meta name="keywords" content="Edit, User">
+<head>
+<meta name="description" content="Editing a user.">
+<meta name="keywords" content="Edit, User">
+</head>
+
 <main class="container mt-5">
   <h1>Edit User</h1>
   {{#with user}}
-  <form id="edit-user-form" method="POST" action="/api/account/{{_id}}">
-  <input id="_id" name="_id" type="hidden" value="{{_id}}">
-  {{!-- <input id="id" name="id" type="hidden" value="{{id}}"> --}}
-  <div class="form-group">
-    <label for="username">Username</label>
-    <input id="username" name="username" class="form-control" type="text" value="{{username}}">
-    <div class="text-danger" id="username-error"></div>
-  </div>
-  <div class="form-group">
-    <label for="email">Email</label>
-    <input id="email" name="email" class="form-control" type="email" value="{{email}}">
-    <div class="text-danger" id="email-error"></div>
-  </div>
-  <div class="form-group">
-    <label for='bio'>Bio</label>
-    <input id="bio" name="bio" class="form-control" type="text" value="{{bio}}">
-    <div class="text-danger" id="bio-error"></div>
-  </div>
-  <div class="form-group">
-    <button class="btn btn-primary" type="submit">Save</button>
-  </div>
-  <div class="form-group">
-    <output class="text-danger">{{error}}</output>
-  </div>
+  <form id="edit-user-form" method="POST" action="/api/account/{{_id}}" class="form needs-validation" novalidate>
+    <input id="_id" name="_id" type="hidden" value="{{_id}}">
+    {{!-- <input id="id" name="id" type="hidden" value="{{id}}"> --}}
+    <div class="form-group">
+      <label for="username">Username</label>
+      <input id="username" name="username" class="form-control" type="text" value="{{username}}">
+      <div class="text-danger" id="username-error"></div>
+    </div>
+    <div class="form-group">
+      <label for="email">Email</label>
+      <input id="email" name="email" class="form-control" type="email" value="{{email}}">
+      <div class="text-danger" id="email-error"></div>
+    </div>
+    <div class="form-group">
+      <label for='bio'>Bio</label>
+      <input id="bio" name="bio" class="form-control" type="text" value="{{bio}}">
+      <div class="text-danger" id="bio-error"></div>
+    </div>
+    <div class="form-group">
+      <button class="btn btn-primary" type="submit"><i class="fas fa-pencil-alt"></i> Save</button>
+    </div>
+    <div class="form-group">
+      <output class="text-warning"></output>
+    </div>
   </form>
   {{/with}}
 </main>

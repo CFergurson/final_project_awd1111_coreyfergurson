@@ -6,6 +6,7 @@ const router = express.Router();
 
 router.get('/', async (req, res, next) => {
   res.render('home', { title: 'Home'});
+  
   // db.getAllGroups()
   //   .then((results) => {
   //     res.render('home', { title: 'Home', groups: results });
@@ -62,6 +63,21 @@ router.get('/edit/:id', async (req, res, next) => {
   }
 });
 
+router.get('/delete/:id', async (req, res, next) => {
+  try {
+    const id = req.params.id;
+    const group = await db.findGroupById(id);
+
+    if (group) {
+      res.render('delete', { title: 'Delete Group', group });
+    } else {
+      res.status(404).type('text/plain').send('group not found');
+    }
+  } catch (err) {
+    next(err);
+  }
+});
+
 router.get('/:id', async (req, res, next) => {
   debug('pulling view of group')
   try {
@@ -87,4 +103,5 @@ router.get('/:group_id', (req, res, next) => {
       next(err);
     });
 });
+
 module.exports = router;

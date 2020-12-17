@@ -1,9 +1,12 @@
-  <meta name="description" content="A page to login.">
+  <head>
+<meta name="description" content="A page to login.">
   <meta name="keywords" content="Login">
+  </head>
+  
 <main class="d-flex flex-column">
   <div class="container">
     <h1 class="text-center">Login</h1>
-    <form id="login_form" method="POST" action="/login">
+    <form id="login_form" method="POST" action="/api/login" class="form needs-validation" novalidate>
       <div class="form-group">
         <label for="username">Username</label>
         <input id="username" name="username" class="form-control" value="{{username}}">
@@ -17,8 +20,9 @@
       <div class="form-group text-center">
         <button type="submit" class="btn btn-primary">Login</button>
         <button type="reset" class="btn btn-secondary">Reset</button>
-        <div class="text-danger">{{result}}</div>
+        
       </div>
+      <output class="text-warning"></output>
     </form>
   </div>
 </main>

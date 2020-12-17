@@ -1,8 +1,11 @@
-  <meta name="description" content="Add a user.">
+  <head>
+ <meta name="description" content="Add a user.">
   <meta name="keywords" content="Add, User">
+  </head>
+ 
 <main class="container mt-5">
 <h1>Add User</h1>
-<form id="add-user-form" method="POST" action="/api/account">
+<form id="add-user-form" method="POST" action="/api/account" class="form needs-validation" novalidate>
 <div class="form-group">
   <label for="username">Username</label>
   <input id="username" name="username" class="form-control" type="text">
@@ -18,16 +21,21 @@
   <input id="password" name="password" class="form-control" type="password">
   <div class="text-danger" id="password-error"></div>
 </div>
+<div class="form-group">
+  <label for="bio">Bio</label>
+  <input id="bio" name="bio" class="form-control" type="text">
+  <div class="text-danger" id="bio-error"></div>
+</div>
 {{!-- <div class="form-group">
   <label for="confirm-password">Confirm Password</label>
   <input id="confirm-password" name="confirm-password" class="form-control" type="password">
   <div class="text-danger" id="confirm-password-error"></div>
 </div> --}}
 <div class="form-group">
-  <button class="btn btn-primary" type="submit">Add</button>
+  <button class="btn btn-primary" type="submit"><i class="fas fa-plus"></i> Add</button>
 </div>
 <div class="form-group">
-  <output class="text-danger"></output>
+  <output class="text-warning"></output>
 </div>
 </form>
 </main>

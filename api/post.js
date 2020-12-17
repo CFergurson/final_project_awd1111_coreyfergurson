@@ -79,29 +79,34 @@ router.get('/', async (req, res, next) => {
 });
 router.post('/', async (req, res, next) => {
   debug('insert post');
-  let error = '';
+ 
   try {
     const schema = joi.object({
       title: joi.string().required().min(1).max(100).trim(),
       body: joi.string().required().min(1).max(100).trim(),
     });
-    debug(error);
+    
     
     post = await schema.validateAsync(req.body);
+    
+    const result = await db.insertPost(post);
+    debug(result);
+    res.json(result);
     // debug(group.memberCount);
-    if(!post.title){
-      error = "Please enter a valid title";
-      if(error){
-        res.render('add-post', {title: "Posts", post ,error: error});
-      }else{
-        await db.insertPost(post);
-        res.render('posts');
-      }
-    }
+    // if(!post.title){
+    //   error = "Please enter a valid title";
+    //   if(error){
+    //     res.render('add-post', {title: "Posts", post ,error: error});
+    //   }else{
+    //     await db.insertPost(post);
+    //     res.render('posts');
+    //   }
+    // }
     
     
   }catch(err){
-    next(err)
+    // next(err)
+    sendError(err, res);
    
   }
 });
@@ -119,9 +124,9 @@ router.post('/:id', async (req, res, next) => {
     // group.id = req.params.id;
     post = await schema.validateAsync(req.body);
     debug(post);
-  await db.updatePost(post);
+  const result = await db.updatePost(post);
     // debug(`result: ${result}`);
-    res.render('posts');
+    res.json(result)
   }catch(err){
     sendError(err, res);
   }

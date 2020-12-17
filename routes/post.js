@@ -25,4 +25,18 @@ router.get('/edit/:id', async (req, res, next) => {
     next(err);
   }
 });
+router.get('/delete/:id', async (req, res, next) => {
+  try{
+    const id = req.params.id;
+    const post = await db.findPostById(id);
+    
+    if(post){
+      res.render('delete-post', {title: 'Delete Post', post});
+    }else{
+      res.status(404).type('text/plain').send('post not found')
+    }
+  }catch(err){
+    next(err);
+  }
+});
 module.exports = router;

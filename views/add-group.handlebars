@@ -1,8 +1,11 @@
-  <meta name="description" content="Adding a group.">
+  <head>
+<meta name="description" content="Adding a group.">
   <meta name="keywords" content="Add, Group">
+  </head>
+  
 <main class="container mt-5">
   <h1>Add Group</h1>
-  <form id="add-group-form" method="POST" action='/api/group'>
+  <form id="add-group-form" method="POST" action='/api/group' class="form needs-validation" novalidate>
     <div class="form-group">
       <label for="name">Name</label>
       <input id="name" name="name" class="form-control" type="text">
@@ -19,10 +22,10 @@
       <div id="member_count-error" class="text-danger"></div>
     </div>
     <div class="form-group">
-      <button class="btn btn-primary" type="submit">Add</button>
+      <button class="btn btn-primary" type="submit"><i class="fas fa-plus"></i> Add</button>
     </div>
     <div class="form-group">
-      <output class="text-danger">{{error}}</output>
+      <output class=" text-warning"></output>
     </div>
   </form>
 </main>

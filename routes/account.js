@@ -57,6 +57,20 @@ router.get('/edit/:id', async (req, res, next) => {
     next(err);
   }
 });
+router.get('/delete/:id', async (req, res, next) => {
+  try{
+    const id = req.params.id;
+    const user = await db.findUserById(id);
+    
+    if(user){
+      res.render('delete-user', {title: 'Delete User', user});
+    }else{
+      res.status(404).type('text/plain').send('user not found')
+    }
+  }catch(err){
+    next(err);
+  }
+});
 router.get('/:id', async (req, res, next) => {
   debug('pulling view of user')
   
@@ -74,5 +88,6 @@ router.get('/:id', async (req, res, next) => {
     next(err);
   }
 })
+
 
 module.exports = router;

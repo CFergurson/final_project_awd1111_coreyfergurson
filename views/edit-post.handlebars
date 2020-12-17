@@ -1,5 +1,8 @@
-  <meta name="description" content="Editing a post.">
+  <head>
+<meta name="description" content="Editing a post.">
   <meta name="keywords" content="Edit, Post">
+  </head>
+  
 <main class="container mt-5">
   <h1>Edit Post</h1>
   {{#with post}}
@@ -19,10 +22,10 @@
 
     <div class="form-group">
 
-      <button class="btn btn-primary" type="submit">Save</button>
+      <button class="btn btn-primary" type="submit"><i class="fas fa-pencil-alt"></i> Save</button>
     </div>
     <div class="form-group">
-      <output class="text-danger">{{error}}</output>
+      <output class="text-warning"></output>
     </div>
   </form>
   {{/with}}
